@@ -1,0 +1,56 @@
+- type: entity
+  parent: BaseStructureDynamic
+  id: M14GreenBox
+  categories: [ HideSpawnMenu ]
+  name: green box
+  description: A large container for items.
+  components:
+  - type: Transform
+    noRot: true
+  - type: Icon
+    sprite: _Metro14/Structures/Storage/green_box.rsi
+    state: icon
+  - type: Sprite
+    sprite: _Metro14/Structures/Storage/green_box.rsi
+    state: icon
+  - type: InteractionOutline
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.29"
+        density: 50
+        mask:
+        - CrateMask #this is so they can go under plastic flaps
+        layer:
+        - MachineLayer
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+  - type: Storage
+    grid:
+    - 0,0,19,9
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: []
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  # to prevent bag open/honk spam
+  - type: Appearance
+  - type: RequireProjectileTarget

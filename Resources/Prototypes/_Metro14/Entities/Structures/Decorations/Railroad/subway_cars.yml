@@ -1,0 +1,59 @@
+﻿- type: entity
+  parent: BaseStructure
+  id: M14SubwayCarCabin
+  name: subway car cabin
+  description: The cabin of the subway train driver. It is from here that you can control the train. More accurately.. They could have...
+  components:
+  - type: Anchorable
+    flags:
+    - Anchorable
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection:
+          MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection:
+          MetalLaserImpact
+  - type: IsRoof
+  - type: Sprite
+    sprite: _Metro14/Structures/Railroad/train.rsi
+    state: cabin
+  - type: Physics
+    bodyType: Static
+  - type: RadiationBlocker
+    resistance: 3
+  - type: BlockWeather
+  - type: SunShadowCast
+
+- type: entity
+  parent: BaseStructure
+  id: M14SubwayCar
+  name: subway car
+  description: The subway car in witch passengers used to be transported under a multi-meter layer of earth.
+  components:
+  - type: Sprite
+    sprite: _Metro14/Structures/Railroad/train.rsi
+    state: train
+
+- type: entity
+  parent: BaseStructure
+  id: M14SubwayCar1
+  name: subway car
+  description: The subway car in witch passengers used to be transported under a multi-meter layer of earth.
+  components:
+  - type: Sprite
+    sprite: _Metro14/Structures/Railroad/train.rsi
+    state: train1
+
+- type: entity
+  parent: BaseStructure
+  id: M14SubwayCar2
+  name: subway car
+  description: The subway car in witch passengers used to be transported under a multi-meter layer of earth.
+  components:
+  - type: Sprite
+    sprite: _Metro14/Structures/Railroad/train.rsi
+    state: train2

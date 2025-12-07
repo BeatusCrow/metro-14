@@ -1,0 +1,298 @@
+- type: entity
+  parent: BaseSign
+  id: M14PosterBase
+  abstract: true
+  components:
+  - type: WallMount
+    arc: 360
+  - type: Sprite
+    drawdepth: WallMountedItems
+    sprite: _Metro14/Structures/Wallmounts/posters.rsi
+    snapCardinals: true
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 5
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/poster_broken.ogg
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          PosterBroken:
+            min: 1
+            max: 1
+        offset: 0
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterBazar
+  name: "No swag, no bazaar"
+  description: It looks like this poster wants to shake a lot of bullets out of you.
+  components:
+  - type: Sprite
+    state: bazar
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterClearSky
+  name: "Clear Sky"
+  description: An agitation poster calling for the removal of dust clouds and nuclear dust from the sky. It is unclear how they plan to do this...
+  components:
+  - type: Sprite
+    state: clearsky
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterDirtySky
+  name: "Dirty Sky"
+  description: The opposite of the "World Clean Sky" poster. This poster describes how the world has come to an end and there is no point in cleaning it.
+  components:
+  - type: Sprite
+    state: dirtysky
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterFreebies
+  name: "Freebies"
+  description: Freebie! Do people still like freebies?
+  components:
+  - type: Sprite
+    state: freebies
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterCoolMan
+  name: "cool man"
+  description: He's a tough guy. We'll all look up to him sooner or later.
+  components:
+  - type: Sprite
+    state: gay
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterNiceMan
+  name: "Pumped-up man"
+  description: Well, it's clear. The guy works out a lot.
+  components:
+  - type: Sprite
+    state: gigachad
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterGun
+  name: "Hide to gun"
+  description: The poster urges people to hide their weapons and not show them off. These posters are usually placed in train stations.
+  components:
+  - type: Sprite
+    state: gun
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterIcon
+  name: "Icon"
+  description: 
+  components:
+  - type: Sprite
+    state: icon
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterIcon1
+  name: "Icon"
+  description: 
+  components:
+  - type: Sprite
+    state: icon2
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterLenin
+  name: "Lenin"
+  description: The poster shows... Lenin!
+  components:
+  - type: Sprite
+    state: lenin
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterMap
+  name: "Map"
+  description: A map of the surface that the stalkers created based on their trips to the surface.
+  components:
+  - type: Sprite
+    state: map
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterMed
+  name: "Medical poster"
+  description: Medical poster. This shows a human hand.
+  components:
+  - type: Sprite
+    state: med1
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterMed1
+  name: "Medical poster"
+  description: A medical poster. Here it is. Some kind of organ.
+  components:
+  - type: Sprite
+    state: med2
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterMed2
+  name: "Medical poster"
+  description: A medical poster. Here is a human heart in all its glory!
+  components:
+  - type: Sprite
+    state: med3
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterMed3
+  name: "Medical poster"
+  description: Medical poster. It shows human bones and more.
+  components:
+  - type: Sprite
+    state: med4
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterMed4
+  name: "Medical poster"
+  description: A medical poster. Here is the brain in all its glory!
+  components:
+  - type: Sprite
+    state: med5
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterMed5
+  name: "Wash hands. dont hurt"
+  description: The poster calls for washing your hands more often.
+  components:
+  - type: Sprite
+    state: med6
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterNotSay
+  name: "Not say"
+  description: The poster told you to shut up. If you don't shut up, he'll endure it.
+  components:
+  - type: Sprite
+    state: notsay
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterRadiation
+  name: "Radiation"
+  description: A sign urging you to stay away from this area due to the high levels of radiation.
+  components:
+  - type: Sprite
+    state: radiation
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterRadiation1
+  name: "Radiation"
+  description: A sign urging you to stay away from this area due to the high levels of radiation.
+  components:
+  - type: Sprite
+    state: radiation2
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterRecruiting
+  name: "Recruiting"
+  description: The poster is about the recruitment of the Red Line Army. They promise big payouts and an honorable pension.
+  components:
+  - type: Sprite
+    state: recruiting
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterRedline
+  name: "Redline"
+  description: It's like a flag with the Red Line's symbolism on it.
+  components:
+  - type: Sprite
+    state: redline1
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterRedline1
+  name: "Redline"
+  description: Poster with the Red Line symbolism.
+  components:
+  - type: Sprite
+    state: redline2
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterRedline2
+  name: "Redline"
+  description: Poster with the Red Line symbolism.
+  components:
+  - type: Sprite
+    state: redline3
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterHydra
+  name: "Hydra"
+  description: It's like a flag with the symbolism of the Fourth Hydra.
+  components:
+  - type: Sprite
+    state: reich
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterRun
+  name: "Run"
+  description: A blood-written message... RUN!!!!!
+  components:
+  - type: Sprite
+    state: run
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterSearch
+  name: "Search"
+  description: Attention! A man known by the pseudonym "Bourbon" is being sought. If you know his whereabouts, please inform the station manager immediately!
+  components:
+  - type: Sprite
+    state: search
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterSearchGun
+  name: "Search gun"
+  description: A poster indicating the loss of a gun. There's even an address left.
+  components:
+  - type: Sprite
+    state: searchgun
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterStalin
+  name: "Stalin"
+  description: The poster of Stalin
+  components:
+  - type: Sprite
+    state: stalin
+
+- type: entity
+  parent: M14PosterBase
+  id: M14PosterStalker
+  name: "Take care of yourself, stalker"
+  description: A poster urging you to take care of yourself. Good luck, Stalker!
+  components:
+  - type: Sprite
+    state: stalker

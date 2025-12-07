@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from  at commit https://github.com/stalker14-project/stalker-14",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "bazar"
+    },
+    {
+      "name": "clearsky"
+    },
+    {
+      "name": "dirtysky"
+    },
+    {
+      "name": "freebies"
+    },
+    {
+      "name": "gay"
+    },
+    {
+      "name": "gigachad"
+    },
+    {
+      "name": "gun"
+    },
+    {
+      "name": "icon"
+    },
+    {
+      "name": "icon2"
+    },
+    {
+      "name": "lenin"
+    },
+    {
+      "name": "map"
+    },
+    {
+      "name": "med1"
+    },
+    {
+      "name": "med2"
+    },
+    {
+      "name": "med3"
+    },
+    {
+      "name": "med4"
+    },
+    {
+      "name": "med5"
+    },
+    {
+      "name": "med6"
+    },
+    {
+      "name": "notsay"
+    },
+    {
+      "name": "radiation"
+    },
+    {
+      "name": "radiation2"
+    },
+    {
+      "name": "recruiting"
+    },
+    {
+      "name": "redline1"
+    },
+    {
+      "name": "redline2"
+    },
+    {
+      "name": "redline3"
+    },
+    {
+      "name": "reich"
+    },
+    {
+      "name": "run"
+    },
+    {
+      "name": "search"
+    },
+    {
+      "name": "searchgun"
+    },
+    {
+      "name": "stalin"
+    },
+    {
+      "name": "stalker"
+    }
+  ]
+}

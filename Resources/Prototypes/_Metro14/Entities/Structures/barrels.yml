@@ -1,0 +1,190 @@
+- type: entity
+  parent: [ StorageTank ]
+  id: M14BaseBarrelChem
+  abstract: true
+  components:
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.18,-0.48,0.18,0.28"
+        density: 200
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+    - trigger:
+        !type:DamageTrigger
+        damage: 25
+      behaviors:
+      - !type:SpillBehavior
+        solution: tank
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: SolutionContainerManager
+    solutions:
+      tank:
+        maxVol: 500
+  - type: ExaminableSolution
+    solution: tank
+
+# Radiation Barrel
+
+- type: entity
+  id: M14RadiationWasteBarrelFull
+  name: radiation fluid barrel
+  description: Don't go near her!
+  parent: M14BaseBarrelChem
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _Metro14/Structures/Barrels/radiation.rsi
+    state: icon
+  - type: RadiationSource
+    intensity: 2
+  - type: SolutionContainerManager
+    solutions:
+      tank:
+        reagents:
+        - ReagentId: M14RadiationWaste
+          Quantity: 500
+
+- type: entity
+  id: M14RadiationWasteBrokenBarrel
+  name: Radiation Fluid Barrel Broken
+  description: Don't get close to her! Unable to contain the liquid.
+  parent: M14BaseBarrelChem
+  suffix: Broken
+  components:
+  - type: Sprite
+    sprite: _Metro14/Structures/Barrels/radiation_broken.rsi
+    state: icon
+  - type: RadiationSource
+    intensity: 5
+  - type: SolutionContainerManager
+    solutions:
+      tank:
+        reagents:
+        - ReagentId: M14RadiationWaste
+          Quantity: 200
+
+# Oil Barrel
+
+- type: entity
+  id: M14WeldingFuelBarrelFull
+  name: Oil Barrel
+  description: A barrel of fuel inside. Explosive.
+  parent: M14BaseBarrelChem
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _Metro14/Structures/Barrels/explosive.rsi
+    state: icon
+  - type: SolutionContainerManager
+    solutions:
+      tank:
+        reagents:
+        - ReagentId: WeldingFuel
+          Quantity: 500
+  - type: Explosive
+    explosionType: Default
+    totalIntensity: 120
+
+# Bio barrel
+
+- type: entity
+  id: M14ToxinFluidBarrelFull
+  name: Bio Barrel
+  description: A barrel with toxins inside. I advise you not to drink this...
+  parent: M14BaseBarrelChem
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _Metro14/Structures/Barrels/base.rsi
+    state: icon
+  - type: SolutionContainerManager
+    solutions:
+      tank:
+        reagents:
+        - ReagentId: Toxin
+          Quantity: 500
+
+# Barrel
+
+- type: entity
+  parent: CrateGenericSteel
+  id: M14BarrelBlue
+  name: blue barrel
+  description: You can store all sorts of items here, just like in a drawer.
+  components:
+  - type: Icon
+    state: icon
+  - type: Sprite
+    sprite: _Metro14/Structures/Barrels/Storage/blue.rsi
+
+- type: entity
+  parent: CrateGenericSteel
+  id: M14BarrelYellow
+  name: yellow barrel
+  description: You can store all sorts of items here, just like in a drawer.
+  components:
+  - type: Icon
+    state: icon
+  - type: Sprite
+    sprite: _Metro14/Structures/Barrels/Storage/yellow.rsi
+
+- type: entity
+  parent: CrateGenericSteel
+  id: M14Barrel
+  name: barrel
+  description: You can store all sorts of items here, just like in a drawer.
+  components:
+  - type: Icon
+    state: icon
+  - type: Sprite
+    sprite: _Metro14/Structures/Barrels/Storage/rusted.rsi
+
+# Fire barrel
+
+- type: entity
+  id: M14Firebarrel
+  parent: BaseStructure
+  name: barrel-bonfire
+  description: A barrel with burning trash inside, so you can sit next to it and warm up.
+  components:
+  - type: Sprite
+    noRot: true
+    sprite: _Metro14/Structures/Barrels/firebarrel.rsi
+    layers:
+      - state: barrel
+      - state: burning
+  - type: PointLight
+    radius: 5
+    energy: 3
+    color: "#FFC90C"
+  - type: Destructible
+    thresholds:
+      - trigger:
+          !type:DamageTrigger
+          damage: 50
+        behaviors:
+        - !type:DoActsBehavior
+          acts: [ "Destruction" ]
+  - type: AmbientSound
+    volume: -5
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/fireplace.ogg
+  - type: AlwaysHot

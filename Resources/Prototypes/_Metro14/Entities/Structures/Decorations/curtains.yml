@@ -1,0 +1,23 @@
+﻿- type: entity
+  id: M14CurtainsBush
+  parent: BaseCurtains
+  suffix: Bush
+  components:
+  - type: Sprite
+    snapCardinals: true
+    sprite: _Metro14/Structures/Decoration/Curtains/bush.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+
+- type: entity
+  id: M14CurtainsBushOpen
+  parent: M14CurtainsBush
+  suffix: Open, Bush
+  components:
+  - type: Door
+    state: Open
+  - type: Occluder
+    enabled: false
+  - type: Physics
+    canCollide: false

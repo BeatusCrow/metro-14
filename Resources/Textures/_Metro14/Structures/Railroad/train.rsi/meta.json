@@ -1,0 +1,26 @@
+{
+    "version":1,
+    "copyright": "Stalker14 CLA",
+    "size": {
+      "x": 96,
+      "y": 96
+    },
+    "states": [
+        {
+            "name":"cabin",
+            "directions":4
+        },
+        {
+            "name":"train",
+            "directions":4
+        },
+        {
+            "name":"train1",
+            "directions":4
+        },
+        {
+            "name":"train2",
+            "directions":4
+        }
+    ]
+}
