@@ -13,6 +13,9 @@
         - Catwalk
   - type: Transform
     anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Clickable
   - type: Sprite
     sprite: _Metro14/Structures/Railroad/rails.rsi
     state: rail
@@ -24,6 +27,7 @@
     canCollide: false
   - type: Tag
     tags:
+      - Structure
   - type: Fixtures
     fixtures:
       fix1:
