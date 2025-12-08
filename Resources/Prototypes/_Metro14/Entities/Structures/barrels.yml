@@ -43,7 +43,7 @@
 - type: entity
   parent: M14BaseBarrelChem
   id: M14RadiationWasteBarrelFull
-  name: бочка с радиактивными отходами
+  name: бочка с радиоактивными отходами
   description: Не приближайся к ней!
   suffix: Полная
   components:
@@ -62,7 +62,7 @@
 - type: entity
   parent: M14BaseBarrelChem
   id: M14RadiationWasteBrokenBarrel
-  name: дырявая бочка с радиактивными отходами
+  name: дырявая бочка с радиоактивными отходами
   description: Не приближайся к ней! Не в состоянии хранить жидность.
   suffix: Сломана
   components:
