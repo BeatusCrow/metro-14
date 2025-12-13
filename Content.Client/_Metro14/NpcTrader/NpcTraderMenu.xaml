@@ -23,7 +23,7 @@
                             <gfx:StyleBoxFlat BackgroundColor="#2a2a2a" />
                         </PanelContainer.PanelOverride>
                         <BoxContainer Orientation="Horizontal" HorizontalExpand="True" SetWidth="580" VerticalExpand="True" Margin="10">
-                            <Button Name="SellButton" Text="Продать" Margin="10 0 5 0" Access="Public"/>
+                            <Button Name="SellButton" Text="Обмен" Margin="10 0 5 0" Access="Public"/>
                             <Button Name="QuestButton" Text="Квест" Margin="5 0 0 0" Access="Public" Disabled="True"/>
                         </BoxContainer>
                     </PanelContainer>

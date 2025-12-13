@@ -1,37 +1,38 @@
-using Content.Shared.UserInterface;
 using Content.Server.Advertise.EntitySystems;
+using Content.Server.Chat.Systems;
+using Content.Shared._Metro14.NpcTrader;
 using Content.Shared.Advertise.Components;
+using Content.Shared.Administration.Logs;
 using Content.Shared.Arcade;
-using Content.Shared.Power;
+using Content.Shared.Chat;
+using Content.Shared.Database;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
-using Robust.Server.GameObjects;
 using Content.Shared.Inventory;
 using Content.Shared.Item;
+using Content.Shared.Power;
 using Content.Shared.Storage;
+using Content.Shared.UserInterface;
+using Content.Shared.Weapons.Ranged.Components;
+using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
-using Content.Shared._Metro14.NpcTrader;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Content.Shared.Inventory;
-using Content.Shared.Weapons.Ranged.Components;
-using Content.Server.Chat.Systems;
-using Content.Shared.Chat;
-using Content.Shared.Administration.Logs;
-using Content.Shared.Database;
+using Content.Shared.ActionBlocker;
 
 namespace Content.Server._Metro14.NpcTrader;
 
 public sealed class NpcTraderSystem : EntitySystem
 {
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
     [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly SharedHandsSystem _handSystem = default!;
-    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
+    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency] private readonly SharedHandsSystem _handSystem = default!;
+    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
+    [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
 
     private HashSet<EntityUid> _entitiesInRange = new();
     private List<EntityUid> _delItem = new List<EntityUid>();
@@ -62,6 +63,7 @@ public sealed class NpcTraderSystem : EntitySystem
                 if (component.CopyItemsInCatalog == null || component.CopyItemsInCatalog.Count == 0)
                     continue;
 
+                // не думаю, что от этих комментариев будет польза, но тут проверяется вообще возможность данного торговца "респавнить" товары
                 if (component.RespawnItems.Count != null && component.RespawnItems.Count != 0)
                 {
                     foreach (var itemForRespawn in component.RespawnItems)
@@ -90,14 +92,17 @@ public sealed class NpcTraderSystem : EntitySystem
                     }
                 }
 
+                // по факту в тупую перебираем предложения торговца
                 foreach (var item in component.ItemsInCatalog)
                 {
                     if (!_prototype.TryIndex<NpcTraderItemForCatalogPrototype>(item.Key, out var product))
                         continue;
 
+                    // оставляем только те, которые можно восстановить
                     if (!product.CanRespawn)
                         continue;
 
+                    // если текущее значение меньше изначального, то записываем в очередь на восстановление :)
                     if (component.ItemsInCatalog[item.Key] != component.CopyItemsInCatalog[item.Key])
                     {
                         if (!component.RespawnItems.ContainsKey(item.Key))
@@ -114,8 +119,8 @@ public sealed class NpcTraderSystem : EntitySystem
     /// <summary>
     /// Стандартный метод инициализации компонента.
     /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="npcTraderComponent"></param>
+    /// <param name="uid"> торговец </param>
+    /// <param name="npcTraderComponent"> компонент торговца </param>
     /// <param name="args"></param>
     private void OnComponentInit(EntityUid uid, NpcTraderComponent npcTraderComponent, ComponentInit args)
     {
@@ -143,7 +148,7 @@ public sealed class NpcTraderSystem : EntitySystem
             }
         }
 
-        npcTraderComponent.CopyItemsInCatalog = new Dictionary<string, int>(npcTraderComponent.ItemsInCatalog);
+        npcTraderComponent.CopyItemsInCatalog = new Dictionary<string, int>(npcTraderComponent.ItemsInCatalog); // создаем изначальный "слепок" предложений
         npcTraderComponent.NextTick = _gameTiming.CurTime + TimeSpan.FromSeconds(npcTraderComponent.DeltaTime);
         Dirty(uid, npcTraderComponent);
     }
@@ -152,7 +157,7 @@ public sealed class NpcTraderSystem : EntitySystem
     /// <summary>
     /// Метод, вызывающийся при нажатии кнопки "купить" на клиентской части.
     /// </summary>
-    /// <param name="uid"> торговец</param>
+    /// <param name="uid"> торговец </param>
     /// <param name="component"> компонент торговца </param>
     /// <param name="args"> параметры сообщения | args.Buyer - NetEntity покупателя | args.ProductId - ID продукта </param>
     public void OnNpcTraderBuy(EntityUid uid, NpcTraderComponent component, NpcTraderBuyMessage args)
@@ -207,20 +212,27 @@ public sealed class NpcTraderSystem : EntitySystem
         }
     }
 
+    /// <summary>
+    /// Метод, который позволяет торговцам "сказать" что-то игрокам.
+    /// </summary>
+    /// <param name="npcTrader"> от лица какой сущности будет произнесена фраза </param>
+    /// <param name="text"> собственно фраза </param>
     private void TrySayPhrase(EntityUid npcTrader, string text)
     {
         var chatSystem = _entityManager.EntitySysManager.GetEntitySystem<ChatSystem>();
 
-        // Воспроизводим фразу от имени сущности  
         chatSystem.TrySendInGameICMessage(
             npcTrader,
             Loc.GetString(text),
             InGameICChatType.Speak,
-            hideChat: false,  // скрыть из чата  
-            hideLog: false    // скрыть из логов  
+            hideChat: false,  // возможность скрыть из чата  
+            hideLog: false    // возможность скрыть из логов  
         );
     }
 
+    /// <summary>
+    /// Метод, который "изымает" предметы в счет оплаты товара.
+    /// </summary>
     private void TryDeleteItems()
     {
         foreach(var item in _delItem)
@@ -229,6 +241,12 @@ public sealed class NpcTraderSystem : EntitySystem
         }
     }
 
+    /// <summary>
+    /// Метод, который пытается выдать предметы игроку после оплаты.
+    /// </summary>
+    /// <param name="npcUid"> торговец </param>
+    /// <param name="productId"> UID предложения торговца </param>
+    /// <param name="playerUid"> игрок </param>
     private void TryGiveItems(EntityUid npcUid, string productId, EntityUid playerUid)
     {
         if (!_prototype.TryIndex<NpcTraderItemForCatalogPrototype>(productId, out var tradeItemComp))
@@ -241,7 +259,7 @@ public sealed class NpcTraderSystem : EntitySystem
         {
             if (itemId.Value > 0)
                 for (int i = 0; i < itemId.Value; i++)
-                    _inventory.SpawnItemOnEntity(playerUid, itemId.Key);
+                    SpawnItemOnEntityValidated(playerUid, itemId.Key);
         }
 
         if (_entityManager.TryGetComponent(npcUid, out NpcTraderComponent? npcTraderComponent))
@@ -258,6 +276,65 @@ public sealed class NpcTraderSystem : EntitySystem
         _adminLogger.Add(LogType.Action, LogImpact.Low, $"Игрок {playerUid} купил '{productId}'");
     }
 
+    /// <summary>  
+    /// Спавнит предмет и пытается разместить его в инвентаре с соблюдением всех проверок.  
+    /// В отличие от оригинального метода, не обходит проверки через контейнеры.  
+    /// </summary>  
+    public bool SpawnItemOnEntityValidated(EntityUid uid, string prototype, InventoryComponent? inventory = null)
+    {
+        if (!Resolve(uid, ref inventory, false))
+            return false;
+
+        if (Deleted(uid))
+            return false;
+
+        if (!_prototype.HasIndex<EntityPrototype>(prototype))
+            return false;
+
+        var item = Spawn(prototype, Transform(uid).Coordinates);
+
+        bool DeleteItem()
+        {
+            Del(item);
+            return false;
+        }
+
+        // Получаем все слоты инвентаря  
+        if (!_inventory.TryGetSlots(uid, out var slotDefinitions))
+            return DeleteItem();
+
+        // Пробуем разместить в каждом подходящем слоте  
+        foreach (var slotDef in slotDefinitions)
+        {
+            // Проверяем можно ли экипировать предмет в этот слот  
+            if (!_inventory.CanEquip(uid, item, slotDef.Name, out var reason, slotDef, inventory))
+                continue;
+
+            // Проверяем что слот пуст  
+            if (_inventory.TryGetSlotEntity(uid, slotDef.Name, out _, inventory))
+                continue;
+
+            // Пытаемся экипировать с соблюдением всех проверок  
+            if (_inventory.TryEquip(uid, item, slotDef.Name, silent: true, force: false, inventory: inventory))
+                return true;
+        }
+
+        // Если не удалось разместить в инвентарь, пробуем взять в руки  
+        if (TryComp<HandsComponent>(uid, out var hands))
+        {
+            return _handSystem.TryPickup(uid, item, handsComp: hands);
+        }
+
+        return DeleteItem();
+    }
+
+    /// <summary>
+    /// Метод, который ищет предметы для оплаты.
+    /// </summary>
+    /// <param name="npcUid"> торговец </param>
+    /// <param name="itemPrice"> UID предложения торговца </param>
+    /// <param name="buyer"> игрок </param>
+    /// <returns></returns>
     public bool TryFindItem(EntityUid npcUid, string itemPrice, EntityUid buyer)
     {
         // Проверяем руки на наличие предмета-оплаты
@@ -269,6 +346,7 @@ public sealed class NpcTraderSystem : EntitySystem
 
                 if (tempHoldItem != null)
                 {
+                    // если в руках есть контейнер, то проверяем вещи внутри него
                     if (_entityManager.TryGetComponent(tempHoldItem, out StorageComponent? storageCmp))
                         if (TryFindEntityInStorage(storageCmp, itemPrice))
                             return true;
@@ -320,7 +398,7 @@ public sealed class NpcTraderSystem : EntitySystem
             }
             else
             {
-                if (storageComponent == null) //TODO: вещи выдаются только по 1 штуке, вместо указанного количества :(
+                if (storageComponent == null)
                     continue;
 
                 if (TryFindEntityInStorage(storageComponent, itemPrice))

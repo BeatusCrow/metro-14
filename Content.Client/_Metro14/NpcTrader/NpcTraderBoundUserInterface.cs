@@ -1,9 +1,9 @@
-using Content.Shared.Containers.ItemSlots;
-using Content.Shared.Nuke;
 using JetBrains.Annotations;
 using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 using Content.Shared._Metro14.NpcTrader;
+using Content.Shared.Containers.ItemSlots;
+using Content.Shared.Nuke;
 
 namespace Content.Client._Metro14.NpcTrader
 {
