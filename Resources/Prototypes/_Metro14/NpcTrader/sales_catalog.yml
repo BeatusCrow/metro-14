@@ -1,0 +1,7 @@
+- type: npcTraderSalesCatalog # один из возможных каталогов для торговца
+  id: TestTrader
+  catalog: # предложения данного каталога
+    NPC_Trader_Offer_Survival_Kit: -1 # -1 означает, что товар бесконечен
+    NPC_Trader_Offer_Hemostatic_Kit: 5
+    NPC_Trader_Offer_30RifleAmmo_Kit: -1
+    NPC_Trader_Offer_Flashlight_Kit: 10
