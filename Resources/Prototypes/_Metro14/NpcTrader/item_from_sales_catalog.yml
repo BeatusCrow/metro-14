@@ -1,0 +1,55 @@
+- type: npcTraderItemForCatalog
+  id: NPC_Trader_Offer_Survival_Kit
+  name: npc-trader-offer-survival-kit
+  iconId: PosterContrabandDDayPromo # еще можно указать путь к кастомной png иконке. Для этого используйте iconPath вместо iconId
+  description: Пусть тут и не много вещей, зато они помогут тебя выжить...
+  givingItems:
+    CartridgeLightRifle: 15
+  takingItems:
+    WeaponRifleAk: 1
+    FoodTinMRE: 2
+  productTags:
+    - npc-trader-gun-tag
+    - npc-trader-food-tag
+
+- type: npcTraderItemForCatalog
+  id: NPC_Trader_Offer_Hemostatic_Kit
+  name: npc-trader-offer-hemostatic-kit
+  description: Дорого?! Куда тебя безделушкки... А это поможет немного, если словишь маслину. Наверное, поможет...
+  iconId: Medkit
+  canRespawn: true
+  timeRespawn: 600 # 600 секунд, то есть 10 минут
+  countRespawn: 2 # каждые 10 минут будут восстанавливаться 2 набора (больше изначального количества не будет)
+  givingItems:
+    GoldRingDiamond: 2
+  takingItems:
+    Gauze: 1
+    SyringeBicaridine: 1
+  productTags: # это не обязательно
+    - npc-trader-med-tag
+
+- type: npcTraderItemForCatalog
+  id: NPC_Trader_Offer_30RifleAmmo_Kit
+  name: npc-trader-offer-30rifleammo-kit
+  description: Тебе нунжы патроны, а мне нужно в чем-то ходить!
+  iconId: MagazineLightRifle
+  givingItems:
+    ClothingShoesBootsCombat: 1
+  takingItems:
+    MagazineLightRifle: 1
+  productTags:
+    - npc-trader-gun-tag
+
+- type: npcTraderItemForCatalog
+  id: NPC_Trader_Offer_Flashlight_Kit
+  name: npc-trader-offer-flashlight-kit
+  description: Ты хочешь фонарь, а человек, его добывший, хочет кушать... Помогите ж другу другу.
+  iconId: FlashlightSeclite
+  givingItems:
+    M14FoodTinSaury: 2
+    M14FoodTinPorknbean: 1
+    M14FoodTinPea: 3
+  takingItems:
+    FlashlightLantern: 1
+  productTags:
+    - npc-trader-other-tag
