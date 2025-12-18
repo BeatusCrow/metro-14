@@ -1,7 +1,7 @@
 - type: entity
   parent: ClothingShoesBaseButcherable
-  id: 14MClothingShoesValenki
-  name: Валенки
+  id: M14ClothingShoesValenki
+  name: валенки
   description: От холода и снега защитить, а вот от кислотной лужи нет...
   components:
   - type: Sprite

@@ -1,6 +1,6 @@
 - type: entity
   parent: ClothingUniformBase
-  id: 14MClothingUniformJumpsuitOfficer
+  id: M14ClothingUniformJumpsuitOfficer
   name: униформа офицера
   description: Стандартная униформа для унтер состава. На удивление довольно ухоженная.
   components:
@@ -11,7 +11,7 @@
 
 - type: entity
   parent: ClothingUniformBase
-  id: 14ClothingUniformTelogreykaBrown
+  id: M14ClothingUniformTelogreykaBrown
   name: телогрейка
   description: Тёплый комплект одежды, состоящий из ватника и утеплённых штанов с подтяжками. 
   components:
@@ -36,7 +36,7 @@
 
 - type: entity
   parent: ClothingUniformBase
-  id: 14ClothingUniformTelogreykaBlack
+  id: M14ClothingUniformTelogreykaBlack
   name: телогрейка
   description: Тёплый комплект одежды, состоящий из ватника и утеплённых штанов с подтяжками. 
   components:

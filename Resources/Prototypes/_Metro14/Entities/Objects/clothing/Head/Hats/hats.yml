@@ -1,7 +1,7 @@
 - type: entity
   parent: [ClothingHeadBase, BaseFoldable]
-  id: 14MClothingHeadHatUshankaWhite
-  name: Шапка-ушанка
+  id: M14ClothingHeadHatUshankaWhite
+  name: шапка-ушанка
   description: "Тёплая меховая шапка - самый популярный головной убор среди мужчин и женщин, стариков и детей."
   components:
   - type: Clothing
@@ -25,8 +25,8 @@
 
 - type: entity
   parent: [ClothingHeadBase, BaseFoldable]
-  id: 14MClothingHeadHatUshankaBlack
-  name: Шапка-ушанка
+  id: M14ClothingHeadHatUshankaBlack
+  name: шапка-ушанка
   description: "Тёплая меховая шапка - самый популярный головной убор среди мужчин и женщин, стариков и детей."
   components:
   - type: Clothing
@@ -50,8 +50,8 @@
 
 - type: entity
   parent: ClothingHeadBase
-  id: 14MClothingHeadHatBeaverHat
-  name: Jфицерская фуражка
+  id: M14ClothingHeadHatBeaverHat
+  name: офицерская фуражка
   description: 'помятая, слегка в грязи, но даже в таком виде она внушает страх!'
   components:
   - type: Sprite
