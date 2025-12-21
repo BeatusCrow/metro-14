@@ -9,7 +9,7 @@ namespace Content.Shared.Radio.Components;
 ///     Listens for local chat messages and relays them to some radio frequency
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-[Access(typeof(SharedRadioDeviceSystem))]
+//[Access(typeof(SharedRadioDeviceSystem))] изменения для Metro-14
 public sealed partial class RadioMicrophoneComponent : Component
 {
     [DataField]
